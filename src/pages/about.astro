@@ -1,0 +1,44 @@
+---
+// About Us - 87 Calculator
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPVM33GF79" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DPVM33GF79');
+    </script>
+    <title>About Us | 87 Calculator</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com" is:inline></script>
+    <script is:inline>
+        tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Outfit', 'sans-serif'] } } } };
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else { document.documentElement.classList.remove('dark'); }
+    </script>
+</head>
+<body class="relative min-h-screen font-sans bg-gradient-to-br from-[#c6a7e0] via-[#f4b7cb] to-[#f9d7b4] dark:from-[#0f0c29] dark:via-[#302b63] dark:to-[#24243e] text-bloomDark dark:text-white p-6 md:p-12 transition-colors duration-500">
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-0 w-[80vw] h-[80vw] bg-[#b185db] dark:bg-[#7b2cbf] rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] opacity-60 dark:opacity-30"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-3xl mx-auto bg-white/40 dark:bg-black/30 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-3xl p-8 md:p-12 shadow-xl">
+        <a href="/" class="text-sm font-bold opacity-60 hover:opacity-100 transition-opacity">← Back to Calculator Hub</a>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter mt-6 mb-6">About Us.</h1>
+        <div class="space-y-4 text-lg font-medium opacity-80 leading-relaxed">
+            <p>Welcome to <strong>87 Calculator</strong>, a premium multi-device utility hub designed to deliver absolute precision across mathematics, finance, health, and physics.</p>
+            <p>Our philosophy is simple: calculations should be instant, accurate, and beautifully presented. By utilizing a real-time, client-side dynamic engine, we ensure that your metrics are processed the exact millisecond you type them—no loading screens, no forced server reloads.</p>
+            <p>Whether you are calculating a complex mortgage structure, determining chronological age, or optimizing a health regimen, our meticulously crafted interface is built to provide answers with zero friction.</p>
+        </div>
+    </div>
+</body>
+</html>

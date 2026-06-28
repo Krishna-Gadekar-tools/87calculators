@@ -1,0 +1,203 @@
+---
+// FAQ Page - 87 Calculator
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPVM33GF79" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DPVM33GF79');
+    </script>
+    <title>FAQ | 87 Calculator</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com" is:inline></script>
+    <script is:inline>
+        tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Outfit', 'sans-serif'] } } } };
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else { document.documentElement.classList.remove('dark'); }
+    </script>
+</head>
+<body class="relative min-h-screen font-sans bg-gradient-to-br from-[#c6a7e0] via-[#f4b7cb] to-[#f9d7b4] dark:from-[#0f0c29] dark:via-[#302b63] dark:to-[#24243e] text-bloomDark dark:text-white p-6 md:p-12 transition-colors duration-500">
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-0 w-[80vw] h-[80vw] bg-[#b185db] dark:bg-[#7b2cbf] rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] opacity-60 dark:opacity-30 animate-pulse" style="animation-duration: 8s;"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto bg-white/40 dark:bg-black/30 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-3xl p-8 md:p-12 shadow-xl">
+        <a href="/" class="text-sm font-bold opacity-60 hover:opacity-100 transition-opacity">← Back to Calculator Hub</a>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter mt-6 mb-8 text-bloomDark dark:text-white">Frequently Asked Questions.</h1>
+        
+        <div class="space-y-4">
+            
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>How do calculators work?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Calculators use microprocessors to convert button inputs into binary code, process them through logic gates, and display the result.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>Are calculators allowed on the SAT/ACT?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Yes, most graphing and scientific calculators are allowed for math sections on the SAT and ACT, though specific models (like those with QWERTY keyboards or internet access) are prohibited.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>What is chronological age?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Chronological age is the exact amount of time that has elapsed from your birth date to a specific target date (such as today), expressed in years, months, and days.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>How is BMI calculated and is it accurate?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">BMI is calculated by dividing weight in kilograms by the square of height in meters. While a useful baseline metric for populations, it doesn't distinguish between muscle mass and body fat percentage.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>What is the difference between simple and compound interest?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Simple interest is calculated solely on the principal sum. Compound interest earns returns on both the principal and prior accumulated interest, leading to exponential growth over time.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>How does the EMI Loan calculator work?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Equated Monthly Installment (EMI) calculations use the standard loan amortization formula: <code>[P x R x (1+R)^N]/[(1+R)^N - 1]</code>, balancing principal and interest repayments smoothly over the term.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>What is TDEE and how does it relate to fitness goals?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Total Daily Energy Expenditure (TDEE) factors in your basal metabolic rate and activity multiplier. Consuming fewer calories than your TDEE induces a deficit (weight loss), while exceeding it yields a surplus (weight gain).</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>What is the Rule of 72?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">It is a simple mental math formula to estimate investment doubling times. Dividing 72 by the annual return rate (e.g. 72 / 8% = 9) estimates the number of years needed to double capital.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>What is standard deviation and when is it used?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Standard deviation measures dispersion or variability within a dataset. In finance, it indicates asset volatility; in science, it quantifies measurement uncertainty.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>How do Celsius to Fahrenheit conversions work?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">The thermodynamic shift follows the ratio: <code>F = (C x 9/5) + 32</code>. For the reverse conversion, subtract 32 first and then scale by 5/9.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>What are Permutations vs. Combinations?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Permutations (nPr) compute possibilities where order matters (like combination locks). Combinations (nCr) calculate groups where order does not matter (like drawing playing cards).</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>What is ARPU in SaaS business metrics?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">ARPU stands for Average Revenue Per User. It helps startups track account value, expansion trends, and customer lifecycle worth by dividing total revenue by active subscriber counts.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>How does a break-even analysis help a company?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">It calculates the crossover volume where gross revenues exactly cover fixed operational overhead and unit production costs, determining when a product line becomes profitable.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>What are sleep cycles and how long is a normal cycle?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Sleep cycles track transitions through light, deep, and REM sleep phases. A single cycle averages 90 minutes. Timing alarms to complete cycles helps avoid waking up feeling groggy.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>How do timezone offsets work?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Global positions calculate time offset from Coordinated Universal Time (UTC/GMT). For instance, Eastern Standard Time is UTC-5, while India Standard Time is UTC+5:30.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>Can I use these calculations for professional medical or financial decisions?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">No. All calculations, estimates, and data outputs on 87 Calculator are for educational and informational purposes only. Consult credentialed specialists for binding health, legal, or capital decisions.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>Are my inputs or results stored on your servers?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">No. All logic, math, and date differences execute completely client-side in your local browser window. No data inputs ever leave your machine or upload to external trackers.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>How can I submit suggestions or bug reports?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">You can use our floating glass feedback widget in the lower-right corner of the hub, or submit inquiries to our support registry at <code>87calculators@gmail.com</code>.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>Does this site support dark mode?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Yes. Dark theme triggers automatically based on your system pref, or manually via the toggle switch, saving your selection inside local browser storage to prevent shifts on subsequent loads.</p>
+            </details>
+
+            <details class="group bg-white/30 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-2xl p-5 transition-all duration-300">
+                <summary class="font-bold cursor-pointer text-lg list-none flex justify-between items-center select-none text-bloomDark dark:text-white">
+                    <span>Is this calculator hub free to use?</span>
+                    <span class="transition-transform duration-300 group-open:rotate-45 text-bloomDark/50 dark:text-white/50 text-2xl font-light leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-base font-medium opacity-80 leading-relaxed text-bloomDark dark:text-white/80">Absolutely. The complete engine and all 87 calculation tools are freely accessible. We support our development costs via unobtrusive, glass-integrated ad spaces.</p>
+            </details>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,442 @@
+---
+// Custom-built 87 Calculator Engine - Crafted for performance & clarity
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPVM33GF79" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DPVM33GF79');
+    </script>
+    <title>87 Calculator | Premium Engine</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com" is:inline></script>
+    <script is:inline>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: {
+                fontFamily: { sans: ['Outfit', 'sans-serif'] },
+                colors: { bloomDark: '#2d2640' }
+            }}
+        };
+        // Check for theme pref early to prevent layout shift
+        const theme = localStorage.getItem('color-theme') || 'light';
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+    </script>
+    <style is:global>
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(45,38,64,0.2); border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+        ::-webkit-calendar-picker-indicator { opacity: 0.5; cursor: pointer; }
+        .dark ::-webkit-calendar-picker-indicator { filter: invert(1) opacity(0.7); }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-[#c6a7e0] via-[#f4b7cb] to-[#f9d7b4] dark:from-[#0f0c29] dark:via-[#302b63] dark:to-[#24243e] text-bloomDark dark:text-white transition-colors duration-500 min-h-screen md:p-8">
+
+    <!-- Ambient background orbs -->
+    <div class="fixed top-0 left-0 w-[60vw] h-[60vw] bg-[#b185db] dark:bg-[#7b2cbf] rounded-full mix-blend-multiply dark:mix-blend-screen blur-[120px] opacity-50 dark:opacity-20 pointer-events-none z-0 animate-pulse" style="animation-duration:8s;"></div>
+    <div class="fixed bottom-0 right-0 w-[70vw] h-[70vw] bg-[#f2a65a] dark:bg-[#e0aaff] rounded-full mix-blend-multiply dark:mix-blend-screen blur-[150px] opacity-40 dark:opacity-15 pointer-events-none z-0 animate-pulse" style="animation-duration:11s;"></div>
+
+    <!-- ============================================================
+         UI MAIN CONTAINER
+         Two-panel layout: sidebar (tool list) + workspace (inputs)
+    ============================================================ -->
+    <main class="relative z-10 w-full max-w-[1400px] mx-auto min-h-screen md:min-h-0 md:h-[90vh] bg-white/40 dark:bg-black/30 backdrop-blur-3xl rounded-none md:rounded-[2rem] shadow-none md:shadow-2xl flex flex-col-reverse md:flex-row overflow-hidden border-0 md:border border-white/50 dark:border-white/10">
+
+        <!-- ----------------------------------------
+             SIDEBAR — Tool discovery & search
+        ---------------------------------------- -->
+        <aside class="w-full md:w-[320px] bg-white/30 dark:bg-black/20 p-6 flex flex-col border-t md:border-t-0 md:border-r border-white/30 dark:border-white/10">
+            
+            <!-- Brand + Nav -->
+            <div class="flex items-center justify-between mb-6">
+                <h1 class="text-xl font-black tracking-tighter">87 Calculator</h1>
+                <div class="flex items-center gap-3">
+                    <!-- Theme toggle -->
+                    <button id="theme-btn" class="w-8 h-8 rounded-full bg-white/50 dark:bg-black/40 border border-white/60 dark:border-white/20 flex items-center justify-center hover:scale-110 transition-transform text-sm">
+                        <span class="block dark:hidden">🌙</span>
+                        <span class="hidden dark:block">☀️</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile nav links — helps AdSense crawlers discover pages -->
+            <div class="flex md:hidden gap-3 mb-5 text-[10px] font-bold uppercase tracking-widest text-bloomDark/50 dark:text-white/50">
+                <a href="/about" class="hover:text-bloomDark dark:hover:text-white transition-colors">About</a>
+                <a href="/privacy" class="hover:text-bloomDark dark:hover:text-white transition-colors">Privacy</a>
+                <a href="/terms" class="hover:text-bloomDark dark:hover:text-white transition-colors">Terms</a>
+                <a href="/contact" class="hover:text-bloomDark dark:hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <!-- Search filter -->
+            <input type="text" id="search" placeholder="Filter tools..."
+                class="bg-white/40 dark:bg-black/40 border border-white/60 dark:border-white/20 rounded-xl p-3 w-full mb-5 text-sm focus:outline-none focus:ring-2 focus:ring-bloomDark/20 dark:focus:ring-white/20 placeholder-bloomDark/40 dark:placeholder-white/40 font-medium" />
+
+            <!-- Dynamically rendered tool list -->
+            <div id="sidebar-list" class="flex-1 overflow-y-auto space-y-1"></div>
+        </aside>
+
+        <!-- ----------------------------------------
+             WORKSPACE — Active tool inputs + result
+        ---------------------------------------- -->
+        <section id="workspace-top" class="flex-1 p-6 md:p-12 overflow-y-auto bg-white/5 dark:bg-transparent flex flex-col">
+
+            <!-- Desktop nav -->
+            <nav class="hidden md:flex justify-end items-center gap-6 mb-10 text-sm font-semibold text-bloomDark/60 dark:text-white/60">
+                <a href="/about" class="hover:text-bloomDark dark:hover:text-white transition-colors">About</a>
+                <a href="/privacy" class="hover:text-bloomDark dark:hover:text-white transition-colors">Privacy</a>
+                <a href="/terms" class="hover:text-bloomDark dark:hover:text-white transition-colors">Terms</a>
+                <a href="/contact" class="px-5 py-2 rounded-full bg-bloomDark dark:bg-white text-white dark:text-bloomDark text-xs font-bold hover:opacity-80 transition-opacity shadow-md">Support</a>
+            </nav>
+
+            <!-- Active tool header -->
+            <div id="active-tool-header" class="mb-8">
+                <!-- Category tag -->
+                <span id="calc-category" class="inline-block px-3 py-1 rounded-full bg-white/60 dark:bg-white/10 border border-white/70 dark:border-white/20 text-[10px] font-extrabold uppercase tracking-widest mb-3 text-bloomDark/70 dark:text-white/70">Category</span>
+                <!-- Tool name as the main heading -->
+                <h2 id="calc-title" class="text-4xl md:text-7xl font-black tracking-tighter leading-tight">Loading...</h2>
+            </div>
+
+            <!-- Input fields — populated dynamically by updateUI() -->
+            <div id="input-matrix" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+            <!-- Live result panel -->
+            <div class="mt-10 bg-white/30 dark:bg-white/5 border border-white/60 dark:border-white/10 p-8 rounded-3xl text-center shadow-inner mt-auto">
+                <p class="text-[10px] uppercase tracking-widest opacity-60 font-extrabold mb-2">Live Result</p>
+                <div class="flex items-baseline gap-2 justify-center flex-wrap">
+                    <div id="live-result" class="text-6xl md:text-9xl font-black tracking-tighter text-bloomDark dark:text-white transition-all duration-300">0</div>
+                    <span id="live-unit" class="text-xl md:text-3xl font-bold opacity-40"></span>
+            </div>
+
+            <!-- WORKSPACE BOTTOM AD SLOT (Visible on All Devices) -->
+            <div class="mt-6 md:mt-8 mb-4 w-full h-[90px] bg-white/30 dark:bg-white/5 backdrop-blur-md border border-white/50 dark:border-white/10 rounded-2xl flex flex-col items-center justify-center text-bloomDark/40 dark:text-white/40 shadow-inner flex-shrink-0 transition-colors duration-500">
+                <span class="text-[10px] font-extrabold uppercase tracking-widest">Advertisement</span>
+                <span class="text-xs opacity-50 mt-1">(Responsive Banner)</span>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="w-full py-8 border-t border-white/10 text-center text-sm opacity-60 max-w-[1400px] mx-auto mt-8 relative z-10">
+        <div class="flex justify-center gap-6 mb-4 font-semibold text-bloomDark dark:text-white">
+            <a href="/about" class="hover:underline">About</a>
+            <a href="/privacy" class="hover:underline">Privacy</a>
+            <a href="/terms" class="hover:underline">Terms</a>
+            <a href="/contact" class="hover:underline">Contact</a>
+            <a href="/faq" class="hover:underline">FAQ</a>
+        </div>
+        <p class="text-bloomDark dark:text-white/60">&copy; 2026 87 Calculator. All rights reserved.</p>
+    </footer>
+
+    <!-- ============================================================
+         CALCULATOR ENGINE
+         Data bank is kept modular — each tool is self-contained.
+    ============================================================ -->
+    <script is:inline>
+
+        // ── Theme toggle ──────────────────────────────────────────
+        document.getElementById('theme-btn').addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+        });
+
+        // ── Tool data bank ─────────────────────────────────────────
+        // Each entry: c=category, n=display name, i=inputs, u=unit (opt), f=formula
+        const tools = {
+
+            // ─ Basic Math ────────────────────────────────────────
+            "add":    { c: "Basic Math", n: "Addition",           i: {a:"Num 1", b:"Num 2"}, f: v => (v.a + v.b).toLocaleString() },
+            "sub":    { c: "Basic Math", n: "Subtraction",        i: {a:"Num 1", b:"Num 2"}, f: v => (v.a - v.b).toLocaleString() },
+            "mul":    { c: "Basic Math", n: "Multiplication",     i: {a:"Num 1", b:"Num 2"}, f: v => (v.a * v.b).toLocaleString() },
+            "div":    { c: "Basic Math", n: "Division",           i: {a:"Dividend", b:"Divisor"}, f: v => v.b === 0 ? "Error" : (v.a / v.b).toLocaleString(undefined, {maximumFractionDigits: 4}) },
+            "mod":    { c: "Basic Math", n: "Remainder (Mod)",    i: {a:"Number", b:"Divisor"}, f: v => v.b === 0 ? "Error" : (v.a % v.b).toLocaleString() },
+            "sq":     { c: "Basic Math", n: "Square",             i: {a:"Number"}, f: v => (v.a * v.a).toLocaleString() },
+            "cube":   { c: "Basic Math", n: "Cube",               i: {a:"Number"}, f: v => Math.pow(v.a, 3).toLocaleString() },
+            "sqrt":   { c: "Basic Math", n: "Square Root",        i: {a:"Number"}, f: v => v.a < 0 ? "Error" : Math.sqrt(v.a).toLocaleString(undefined, {maximumFractionDigits: 4}) },
+            "cbrt":   { c: "Basic Math", n: "Cube Root",          i: {a:"Number"}, f: v => Math.cbrt(v.a).toLocaleString(undefined, {maximumFractionDigits: 4}) },
+            "pct":    { c: "Basic Math", n: "Percentage Of",      i: {a:"Percent (%)", b:"Amount"}, f: v => ((v.a / 100) * v.b).toLocaleString(undefined, {maximumFractionDigits: 2}) },
+
+            // ─ Finance & Wealth ──────────────────────────────────
+            "emi":    { c: "Finance & Wealth", n: "EMI Loan",             i: {p:"Principal", r:"Rate (% pa)", y:"Years"}, u:"/ mo", f: v => { let r=v.r/1200, n=v.y*12; return r===0 ? (v.p/n).toFixed(2) : ((v.p*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1)).toLocaleString(undefined,{maximumFractionDigits:2}); } },
+            "si":     { c: "Finance & Wealth", n: "Simple Interest",      i: {p:"Principal", r:"Rate (%)", t:"Years"}, f: v => ((v.p*v.r*v.t)/100).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "ci":     { c: "Finance & Wealth", n: "Compound Interest",    i: {p:"Principal", r:"Rate (%)", t:"Years"}, f: v => (v.p*Math.pow((1+v.r/100),v.t)-v.p).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "roi":    { c: "Finance & Wealth", n: "Return on Investment", i: {i:"Initial Value", f:"Final Value"}, u:"%", f: v => (((v.f-v.i)/v.i)*100).toFixed(2) },
+            "prof":   { c: "Finance & Wealth", n: "Net Profit",           i: {r:"Revenue", c:"Cost"}, f: v => (v.r-v.c).toLocaleString() },
+            "disc":   { c: "Finance & Wealth", n: "Discount Price",       i: {p:"Original Price", d:"Discount (%)"}, f: v => (v.p-(v.p*(v.d/100))).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "tax":    { c: "Finance & Wealth", n: "Sales Tax",            i: {p:"Price", t:"Tax (%)"}, f: v => (v.p+(v.p*(v.t/100))).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "marg":   { c: "Finance & Wealth", n: "Gross Margin",         i: {r:"Revenue", c:"COGS"}, u:"%", f: v => (((v.r-v.c)/v.r)*100).toFixed(2) },
+            "mark":   { c: "Finance & Wealth", n: "Markup %",             i: {c:"Cost", p:"Selling Price"}, u:"%", f: v => (((v.p-v.c)/v.c)*100).toFixed(2) },
+            "hr2yr":  { c: "Finance & Wealth", n: "Hourly → Yearly",      i: {h:"Hourly Rate", w:"Hours/Week"}, u:"/ yr", f: v => (v.h*v.w*52).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "yr2hr":  { c: "Finance & Wealth", n: "Yearly → Hourly",      i: {y:"Yearly Salary", w:"Hours/Week"}, u:"/ hr", f: v => (v.y/(v.w*52)).toFixed(2) },
+            "rule72": { c: "Finance & Wealth", n: "Rule of 72",           i: {r:"Interest Rate (%)"}, u:"yrs to double", f: v => (72/v.r).toFixed(2) },
+            "tip":    { c: "Finance & Wealth", n: "Tip Calculator",       i: {b:"Bill Amount", t:"Tip (%)"}, f: v => (v.b*(v.t/100)).toLocaleString(undefined,{maximumFractionDigits:2}) },
+
+            // ─ Health & Body ─────────────────────────────────────
+            "bmi":   { c: "Health & Body", n: "BMI",              i: {h:"Height (CM)", w:"Weight (KG)"}, f: v => (v.w/Math.pow(v.h/100,2)).toFixed(1) },
+            "tdee":  { c: "Health & Body", n: "Daily Calories (TDEE)", i: {w:"Weight (KG)", h:"Height (CM)", a:"Age"}, u:"kcal", f: v => Math.round((10*v.w+6.25*v.h-5*v.a+5)*1.55).toLocaleString() },
+            "bmr":   { c: "Health & Body", n: "Resting Calories (BMR)", i: {w:"Weight (KG)", h:"Height (CM)", a:"Age"}, u:"kcal", f: v => Math.round(10*v.w+6.25*v.h-5*v.a+5).toLocaleString() },
+            "water": { c: "Health & Body", n: "Hydration Goal",   i: {w:"Weight (KG)"}, u:"Liters", f: v => (v.w*0.033).toFixed(2) },
+            "hr":    { c: "Health & Body", n: "Max Heart Rate",   i: {a:"Age"}, u:"BPM", f: v => 220-v.a },
+            "pro":   { c: "Health & Body", n: "Protein Goal",     i: {w:"Weight (KG)"}, u:"grams", f: v => (v.w*2.2).toFixed(0) },
+            "fat":   { c: "Health & Body", n: "Fat Macro",        i: {w:"Weight (KG)"}, u:"grams", f: v => (v.w*1.1).toFixed(0) },
+            "carb":  { c: "Health & Body", n: "Carb Macro",       i: {w:"Weight (KG)"}, u:"grams", f: v => (v.w*4.4).toFixed(0) },
+            "iw":    { c: "Health & Body", n: "Ideal Body Weight",i: {h:"Height (CM)"}, u:"KG", f: v => (50+0.9*(v.h-152)).toFixed(1) },
+            "bf":    { c: "Health & Body", n: "Body Fat %",       i: {w:"Weight (KG)", h:"Height (CM)"}, u:"%", f: v => (1.2*(v.w/Math.pow(v.h/100,2))+0.23*25-16.2).toFixed(1) },
+            "preg":  { c: "Health & Body", n: "Pregnancy Days Left", i: {w:"Weeks Pregnant"}, u:"Days", f: v => 280-(v.w*7) },
+            "sleep": { c: "Health & Body", n: "Sleep Cycles",     i: {c:"Cycles (90 min)"}, u:"Hours", f: v => ((v.c*90)/60).toFixed(1) },
+
+            // ─ Statistics ────────────────────────────────────────
+            "mean":  { c: "Statistics", n: "Mean (3 values)",     i: {a:"Val 1", b:"Val 2", c:"Val 3"}, f: v => ((v.a+v.b+v.c)/3).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "range": { c: "Statistics", n: "Range",               i: {h:"Max", l:"Min"}, f: v => (v.h-v.l).toLocaleString() },
+            "var":   { c: "Statistics", n: "Variance",            i: {a:"Val 1", b:"Val 2"}, f: v => { let m=(v.a+v.b)/2; return ((Math.pow(v.a-m,2)+Math.pow(v.b-m,2))/2).toLocaleString(undefined,{maximumFractionDigits:2}); } },
+            "std":   { c: "Statistics", n: "Standard Deviation",  i: {a:"Val 1", b:"Val 2"}, f: v => { let m=(v.a+v.b)/2; return Math.sqrt((Math.pow(v.a-m,2)+Math.pow(v.b-m,2))/2).toLocaleString(undefined,{maximumFractionDigits:2}); } },
+            "zsc":   { c: "Statistics", n: "Z-Score",             i: {x:"Raw Score", u:"Mean", s:"Std Dev"}, f: v => ((v.x-v.u)/v.s).toFixed(2) },
+            "prob":  { c: "Statistics", n: "Probability",         i: {e:"Outcomes", t:"Total"}, u:"%", f: v => ((v.e/v.t)*100).toFixed(2) },
+            "geo":   { c: "Statistics", n: "Geometric Mean",      i: {a:"Val 1", b:"Val 2"}, f: v => Math.sqrt(v.a*v.b).toFixed(2) },
+            "npr":   { c: "Statistics", n: "Permutation nPr",     i: {n:"n", r:"r"}, f: v => Math.pow(v.n,v.r).toLocaleString() },
+            "ncr":   { c: "Statistics", n: "Combination nCr",     i: {n:"n", r:"r"}, f: v => (v.n*v.r).toLocaleString() },
+            "med2":  { c: "Statistics", n: "Median (2 values)",   i: {a:"Val 1", b:"Val 2"}, f: v => ((v.a+v.b)/2).toLocaleString() },
+
+            // ─ Physics & Geometry ────────────────────────────────
+            "spd":  { c: "Physics & Geo", n: "Speed",            i: {d:"Distance", t:"Time"}, u:"units/t", f: v => (v.d/v.t).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "dist": { c: "Physics & Geo", n: "Distance",         i: {s:"Speed", t:"Time"}, f: v => (v.s*v.t).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "time": { c: "Physics & Geo", n: "Time",             i: {d:"Distance", s:"Speed"}, f: v => (v.d/v.s).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "acc":  { c: "Physics & Geo", n: "Acceleration",     i: {i:"Initial Vel", f:"Final Vel", t:"Time"}, f: v => ((v.f-v.i)/v.t).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "fma":  { c: "Physics & Geo", n: "Force (F=ma)",     i: {m:"Mass", a:"Acceleration"}, u:"N", f: v => (v.m*v.a).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "mass": { c: "Physics & Geo", n: "Mass",             i: {f:"Force", a:"Acceleration"}, f: v => (v.f/v.a).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "dens": { c: "Physics & Geo", n: "Density",          i: {m:"Mass", v:"Volume"}, f: v => (v.m/v.v).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "vbox": { c: "Physics & Geo", n: "Box Volume",       i: {l:"Length", w:"Width", h:"Height"}, f: v => (v.l*v.w*v.h).toLocaleString() },
+            "vsph": { c: "Physics & Geo", n: "Sphere Volume",    i: {r:"Radius"}, f: v => ((4/3)*Math.PI*Math.pow(v.r,3)).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "vcyl": { c: "Physics & Geo", n: "Cylinder Volume",  i: {r:"Radius", h:"Height"}, f: v => (Math.PI*Math.pow(v.r,2)*v.h).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "asq":  { c: "Physics & Geo", n: "Square Area",      i: {s:"Side"}, f: v => (v.s*v.s).toLocaleString() },
+            "acir": { c: "Physics & Geo", n: "Circle Area",      i: {r:"Radius"}, f: v => (Math.PI*Math.pow(v.r,2)).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "atri": { c: "Physics & Geo", n: "Triangle Area",    i: {b:"Base", h:"Height"}, f: v => (0.5*v.b*v.h).toLocaleString() },
+
+            // ─ Business ──────────────────────────────────────────
+            "bev":   { c: "Business", n: "Break-Even Units",   i: {f:"Fixed Costs", p:"Price/Unit", v:"Variable Cost"}, f: v => Math.ceil(v.f/(v.p-v.v)).toLocaleString() },
+            "cpa":   { c: "Business", n: "Cost Per Lead",      i: {c:"Ad Spend", n:"New Customers"}, u:"$/user", f: v => (v.c/v.n).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "ltv":   { c: "Business", n: "Customer LTV",       i: {v:"Avg Order", f:"Orders/Year", y:"Yrs Retained"}, f: v => (v.v*v.f*v.y).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "churn": { c: "Business", n: "Churn Rate",         i: {l:"Lost Users", s:"Start Users"}, u:"%", f: v => ((v.l/v.s)*100).toFixed(2) },
+            "conv":  { c: "Business", n: "Conversion Rate",    i: {s:"Conversions", t:"Visitors"}, u:"%", f: v => ((v.s/v.t)*100).toFixed(2) },
+            "arpu":  { c: "Business", n: "ARPU",               i: {r:"Revenue", u:"Users"}, f: v => (v.r/v.u).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "qr":    { c: "Business", n: "Quick Ratio",        i: {c:"Cash", a:"Receivables", l:"Liabilities"}, f: v => ((v.c+v.a)/v.l).toFixed(2) },
+            "cr":    { c: "Business", n: "Current Ratio",      i: {a:"Current Assets", l:"Current Liab"}, f: v => (v.a/v.l).toFixed(2) },
+            "dte":   { c: "Business", n: "Debt-to-Equity",     i: {d:"Total Debt", e:"Total Equity"}, f: v => (v.d/v.e).toFixed(2) },
+            "inv":   { c: "Business", n: "Inventory Turnover", i: {c:"COGS", a:"Avg Inventory"}, f: v => (v.c/v.a).toFixed(2) },
+
+            // ─ Time Tools ────────────────────────────────────────
+            "age":  { c: "Time Tools", n: "Age Calculator",    i: {dob:"Birth Date", tar:"Target Date"}, u:"Years Old", f: v => {
+                // Calculation logic derived manually for accuracy
+                if (!v.dob || !v.tar) return "--";
+                const diff = new Date(v.tar) - new Date(v.dob);
+                const yrs = diff / 31557600000;
+                return yrs < 0 ? "Error" : yrs.toFixed(2);
+            }},
+            "yr2m": { c: "Time Tools", n: "Years → Months",   i: {y:"Years"}, u:"Months", f: v => (v.y*12).toLocaleString() },
+            "lyr":  { c: "Time Tools", n: "Leap Year Check",  i: {y:"Year"}, f: v => (v.y%4===0&&v.y%100!==0)||(v.y%400===0) ? "Yes" : "No" },
+            "wks":  { c: "Time Tools", n: "Weeks → Days",     i: {w:"Weeks"}, u:"Days", f: v => (v.w*7).toLocaleString() },
+            "d2h":  { c: "Time Tools", n: "Days → Hours",     i: {d:"Days"}, u:"Hours", f: v => (v.d*24).toLocaleString() },
+            "h2m":  { c: "Time Tools", n: "Hours → Minutes",  i: {h:"Hours"}, u:"Mins", f: v => (v.h*60).toLocaleString() },
+            "m2s":  { c: "Time Tools", n: "Minutes → Seconds",i: {m:"Minutes"}, u:"Secs", f: v => (v.m*60).toLocaleString() },
+            "dec":  { c: "Time Tools", n: "Decades → Years",  i: {d:"Decades"}, u:"Years", f: v => (v.d*10).toLocaleString() },
+            "eps":  { c: "Time Tools", n: "Unix → Years",     i: {s:"Unix Seconds"}, f: v => (v.s/31536000).toLocaleString(undefined,{maximumFractionDigits:2}) },
+            "tz":   { c: "Time Tools", n: "Timezone Gap",     i: {a:"Zone A (UTC)", b:"Zone B (UTC)"}, u:"hrs diff", f: v => Math.abs(v.a-v.b).toLocaleString() },
+
+            // ─ Unit Conversions ──────────────────────────────────
+            "c2f":   { c: "Conversions", n: "°C → °F",         i: {c:"Celsius"},      u:"°F",    f: v => (v.c*9/5+32).toFixed(1) },
+            "f2c":   { c: "Conversions", n: "°F → °C",         i: {f:"Fahrenheit"},   u:"°C",    f: v => ((v.f-32)*5/9).toFixed(1) },
+            "lb2kg": { c: "Conversions", n: "Pounds → Kg",     i: {l:"Pounds"},       u:"KG",    f: v => (v.l*0.453592).toFixed(2) },
+            "kg2lb": { c: "Conversions", n: "Kg → Pounds",     i: {k:"Kilograms"},    u:"Lbs",   f: v => (v.k*2.20462).toFixed(2) },
+            "mi2km": { c: "Conversions", n: "Miles → Km",      i: {m:"Miles"},        u:"Km",    f: v => (v.m*1.60934).toFixed(2) },
+            "km2mi": { c: "Conversions", n: "Km → Miles",      i: {k:"Kilometers"},   u:"Miles", f: v => (v.k*0.621371).toFixed(2) },
+            "in2cm": { c: "Conversions", n: "Inches → Cm",     i: {i:"Inches"},       u:"Cm",    f: v => (v.i*2.54).toFixed(2) },
+            "cm2in": { c: "Conversions", n: "Cm → Inches",     i: {c:"Centimeters"},  u:"In",    f: v => (v.c/2.54).toFixed(2) },
+            "gal2l": { c: "Conversions", n: "Gallons → Liters",i: {g:"Gallons"},      u:"L",     f: v => (v.g*3.78541).toFixed(2) }
+        };
+
+        // ── State ─────────────────────────────────────────────────
+        let activeId = 'age'; // Default landing tool
+
+        // ── Sidebar builder ───────────────────────────────────────
+        // Groups tools by category and renders clickable buttons
+        function buildSidebar(query = '') {
+            const list = document.getElementById('sidebar-list');
+            list.innerHTML = '';
+            const grouped = {};
+
+            for (const [id, tool] of Object.entries(tools)) {
+                const match = tool.n.toLowerCase().includes(query.toLowerCase())
+                           || tool.c.toLowerCase().includes(query.toLowerCase());
+                if (!match) continue;
+                if (!grouped[tool.c]) grouped[tool.c] = [];
+                grouped[tool.c].push({ id, ...tool });
+            }
+
+            for (const [cat, items] of Object.entries(grouped).sort()) {
+                // Category label
+                const label = document.createElement('div');
+                label.className = 'text-[9px] font-extrabold uppercase tracking-widest text-bloomDark/40 dark:text-white/40 px-2 mt-4 mb-1 first:mt-0';
+                label.innerText = cat;
+                list.appendChild(label);
+
+                // Tool buttons
+                items.forEach(item => {
+                    const btn = document.createElement('button');
+                    const isActive = item.id === activeId;
+                    btn.className = `w-full text-left text-sm font-semibold px-3 py-2 rounded-lg transition-all duration-200 ${
+                        isActive
+                        ? 'bg-white/80 dark:bg-white/10 text-bloomDark dark:text-white shadow-sm border border-white/80 dark:border-white/20'
+                        : 'text-bloomDark/60 dark:text-white/50 hover:bg-white/40 dark:hover:bg-white/5 hover:text-bloomDark dark:hover:text-white'
+                    }`;
+                    btn.innerText = item.n;
+                    btn.onclick = () => {
+                        updateUI(item.id);
+                        // Mobile UX: scroll to workspace after picking a tool
+                        if (window.innerWidth < 768) {
+                            document.getElementById('workspace-top').scrollIntoView({ behavior: 'smooth' });
+                        }
+                    };
+                    list.appendChild(btn);
+                });
+            }
+        }
+
+        // ── UI updater ────────────────────────────────────────────
+        // Swaps in the tool's input fields and resets the result display
+        function updateUI(id) {
+            activeId = id;
+            const tool = tools[id];
+
+            document.getElementById('calc-category').innerText = tool.c;
+            document.getElementById('calc-title').innerText = tool.n;
+            document.getElementById('live-unit').innerText = tool.u || '';
+
+            const result = document.getElementById('live-result');
+            result.innerText = '0';
+            result.style.opacity = '0.3';
+
+            const container = document.getElementById('input-matrix');
+            container.innerHTML = '';
+
+            Object.entries(tool.i).forEach(([key, label]) => {
+                const isDate = label.toLowerCase().includes('date');
+                container.innerHTML += `
+                    <div class="flex flex-col gap-1 bg-white/50 dark:bg-black/30 border border-white/70 dark:border-white/10 p-4 rounded-2xl hover:bg-white/70 dark:hover:bg-white/5 transition-all">
+                        <label class="text-[9px] font-extrabold uppercase tracking-wider opacity-50">${label}</label>
+                        <input type="${isDate ? 'date' : 'number'}"
+                               data-key="${key}"
+                               placeholder="0"
+                               class="calc-input bg-transparent border-none outline-none text-2xl font-black w-full placeholder-bloomDark/20 dark:placeholder-white/20 text-bloomDark dark:text-white" />
+                    </div>
+                `;
+            });
+
+            // Re-attach listeners after DOM rebuild
+            document.querySelectorAll('.calc-input').forEach(inp => {
+                inp.addEventListener('input', computeResult);
+            });
+
+            buildSidebar(document.getElementById('search').value);
+        }
+
+        // ── Result computation ────────────────────────────────────
+        // Reads all inputs and passes values to the active formula
+        function computeResult() {
+            const tool = tools[activeId];
+            const inputs = document.querySelectorAll('.calc-input');
+            const result = document.getElementById('live-result');
+            let vals = {};
+            let hasAny = false;
+            let allOk = true;
+
+            inputs.forEach(inp => {
+                if (inp.type === 'date') {
+                    vals[inp.dataset.key] = inp.value;
+                    if (inp.value) hasAny = true;
+                    else allOk = false;
+                } else {
+                    const n = parseFloat(inp.value);
+                    vals[inp.dataset.key] = isNaN(n) ? 0 : n;
+                    if (inp.value !== '') hasAny = true;
+                    if (isNaN(n) && inp.value !== '') allOk = false;
+                }
+            });
+
+            if (!hasAny) { result.innerText = '0'; result.style.opacity = '0.3'; return; }
+
+            if (allOk) {
+                try {
+                    result.innerText = tool.f(vals);
+                    result.style.opacity = '1';
+                } catch(e) {
+                    result.innerText = 'Error';
+                }
+            } else {
+                result.innerText = '--';
+                result.style.opacity = '0.4';
+            }
+        }
+
+        // ── Search ────────────────────────────────────────────────
+        document.getElementById('search').addEventListener('input', e => buildSidebar(e.target.value));
+
+        // ── Boot ─────────────────────────────────────────────────
+        buildSidebar();
+        updateUI(activeId);
+
+    </script>
+
+    <!-- ============================================================
+         FLOATING FEEDBACK WIDGET
+         Uses Web3Forms — replace access_key before launch
+    ============================================================ -->
+    <div class="fixed bottom-6 right-6 z-[100] flex flex-col items-end">
+
+        <div id="chat-modal" class="hidden mb-4 w-[300px] bg-white/60 dark:bg-black/60 backdrop-blur-3xl border border-white/60 dark:border-white/10 rounded-[2rem] shadow-2xl overflow-hidden">
+            <div class="bg-bloomDark dark:bg-white/10 p-4 text-white flex justify-between items-center">
+                <span class="font-bold text-sm">Leave Feedback</span>
+                <button onclick="toggleChat()" class="opacity-60 hover:opacity-100 text-xl leading-none">×</button>
+            </div>
+            <form action="https://api.web3forms.com/submit" method="POST" class="p-5 flex flex-col gap-3">
+                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY">
+                <input type="hidden" name="subject" value="Feedback — 87 Calculator">
+                <input type="email" name="email" placeholder="Your email (optional)"
+                    class="bg-white/40 dark:bg-black/40 border border-white/60 dark:border-white/10 rounded-xl p-3 text-sm focus:outline-none text-bloomDark dark:text-white placeholder-bloomDark/40 dark:placeholder-white/30" />
+                <textarea name="message" placeholder="Bug? Feature request?" required rows="3"
+                    class="bg-white/40 dark:bg-black/40 border border-white/60 dark:border-white/10 rounded-xl p-3 text-sm focus:outline-none text-bloomDark dark:text-white placeholder-bloomDark/40 dark:placeholder-white/30 resize-none"></textarea>
+                <button type="submit"
+                    class="bg-bloomDark dark:bg-white text-white dark:text-bloomDark font-bold text-sm py-3 rounded-xl hover:opacity-80 transition-opacity">Send →</button>
+            </form>
+        </div>
+
+        <!-- FAB -->
+        <button onclick="toggleChat()"
+            class="w-14 h-14 bg-bloomDark dark:bg-white rounded-full flex items-center justify-center text-white dark:text-bloomDark shadow-[0_8px_32px_rgba(0,0,0,0.25)] hover:scale-110 transition-transform border border-white/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+            </svg>
+        </button>
+    </div>
+
+    <script is:inline>
+        function toggleChat() {
+            const m = document.getElementById('chat-modal');
+            m.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+</html>

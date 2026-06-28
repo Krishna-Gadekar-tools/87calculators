@@ -1,0 +1,55 @@
+---
+// Privacy Policy - 87 Calculator
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPVM33GF79" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DPVM33GF79');
+    </script>
+    <title>Privacy Policy | 87 Calculator</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com" is:inline></script>
+    <script is:inline>
+        tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Outfit', 'sans-serif'] } } } };
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else { document.documentElement.classList.remove('dark'); }
+    </script>
+</head>
+<body class="relative min-h-screen font-sans bg-gradient-to-br from-[#c6a7e0] via-[#f4b7cb] to-[#f9d7b4] dark:from-[#0f0c29] dark:via-[#302b63] dark:to-[#24243e] text-bloomDark dark:text-white p-6 md:p-12 transition-colors duration-500">
+    
+    <div class="relative z-10 max-w-4xl mx-auto bg-white/40 dark:bg-black/30 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-3xl p-8 md:p-12 shadow-xl">
+        <a href="/" class="text-sm font-bold opacity-60 hover:opacity-100 transition-opacity">← Back to Calculator Hub</a>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter mt-6 mb-6">Privacy Policy.</h1>
+        
+        <div class="space-y-6 text-base font-medium opacity-80 leading-relaxed">
+            <p>At 87 Calculator, the privacy of our visitors is of extreme importance to us. This privacy policy document outlines the types of personal information is received and collected by 87 Calculator and how it is used.</p>
+            
+            <h2 class="text-xl font-bold mt-4">1. Data Processing</h2>
+            <p>All calculations performed on this website are executed locally within your web browser (client-side). We do not store, upload, or transmit the numerical data you input into our calculators to any external servers.</p>
+
+            <h2 class="text-xl font-bold mt-4">2. Advertising & Cookies (Google AdSense)</h2>
+            <ul class="list-disc pl-6 space-y-2">
+                <li>Third party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website or other websites.</li>
+                <li>Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to our sites and/or other sites on the Internet.</li>
+                <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" class="underline font-bold hover:opacity-70">Ads Settings</a>.</li>
+            </ul>
+
+            <h2 class="text-xl font-bold mt-4">3. Log Files</h2>
+            <p>Like many other Web sites, 87 Calculator makes use of log files. The information inside the log files includes internet protocol (IP) addresses, type of browser, Internet Service Provider (ISP), date/time stamp, referring/exit pages, and number of clicks to analyze trends, administer the site, track user's movement around the site, and gather demographic information.</p>
+            
+            <p class="mt-8 font-bold">If you require any more information or have any questions about our privacy policy, please feel free to contact us by email at 87calculators@gmail.com.</p>
+        </div>
+    </div>
+</body>
+</html>

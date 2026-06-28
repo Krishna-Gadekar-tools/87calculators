@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --color-geist-bg: #000000;
+  --color-geist-card: #0a0a0a;
+  --color-geist-subcard: #050505;
+  --color-geist-accent: #ffffff;
+  --color-geist-border: #1f1f1f;
+  --color-geist-muted: #888888;
+  --font-sans: "Geist Sans", "Inter", system-ui, sans-serif;
+  --font-mono: "Geist Mono", SFMono-Regular, monospace;
+}
+
+[data-theme="light"] {
+  --color-geist-bg: #fafafa;
+  --color-geist-card: #ffffff;
+  --color-geist-subcard: #f3f4f6;
+  --color-geist-accent: #000000;
+  --color-geist-border: #e5e7eb;
+  --color-geist-muted: #6b7280;
+}
+
+@theme {
+  --color-geist-bg: var(--color-geist-bg);
+  --color-geist-card: var(--color-geist-card);
+  --color-geist-subcard: var(--color-geist-subcard);
+  --color-geist-accent: var(--color-geist-accent);
+  --color-geist-border: var(--color-geist-border);
+  --color-geist-muted: var(--color-geist-muted);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+body {
+  background-color: var(--color-geist-bg);
+  color: var(--color-geist-accent);
+  font-family: var(--font-sans);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Custom premium input styling */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+[data-theme="light"] input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+}
